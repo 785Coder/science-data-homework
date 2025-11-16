@@ -1,0 +1,684 @@
+{
+    "video_awards": [
+        {
+            "awards": [
+                {
+                    "award_name": "最佳两岸华语电影",
+                    "award_info": "文牧野"
+                }
+            ],
+            "name": "第38届香港电影金像奖",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "美洲大奖(提名)",
+                    "award_info": "文牧野"
+                },
+                {
+                    "award_name": "最佳剧本",
+                    "award_info": "韩家女 / 钟伟 / 文牧野"
+                }
+            ],
+            "name": "第42届蒙特利尔世界电影节",
+            "year": "2018"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "最佳故事片(提名)",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "最佳编剧(提名)",
+                    "award_info": "韩家女 / 钟伟 / 文牧野"
+                },
+                {
+                    "award_name": "最佳男主角(提名)",
+                    "award_info": "徐峥"
+                },
+                {
+                    "award_name": "最佳男配角(提名)",
+                    "award_info": "章宇 / 王传君"
+                },
+                {
+                    "award_name": "最佳导演处女作",
+                    "award_info": "文牧野"
+                },
+                {
+                    "award_name": "最佳美术(提名)",
+                    "award_info": "李淼"
+                },
+                {
+                    "award_name": "最佳剪辑(提名)",
+                    "award_info": "朱琳"
+                }
+            ],
+            "name": "第32届中国电影金鸡奖",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "优秀故事片",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "最佳编剧(提名)",
+                    "award_info": "韩家女 / 钟伟 / 文牧野"
+                },
+                {
+                    "award_name": "最佳男配角",
+                    "award_info": "王传君"
+                },
+                {
+                    "award_name": "最佳新人(提名)",
+                    "award_info": "文牧野"
+                }
+            ],
+            "name": "第35届大众电影百花奖",
+            "year": "2020"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "最佳电影(提名)",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "最佳男主角(提名)",
+                    "award_info": "徐峥"
+                },
+                {
+                    "award_name": "最佳男配角",
+                    "award_info": "章宇"
+                },
+                {
+                    "award_name": "最佳编剧(提名)",
+                    "award_info": "韩家女 / 钟伟 / 文牧野"
+                }
+            ],
+            "name": "第13届亚洲电影大奖",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "金鹿奖 最佳华语故事片",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "金鹿奖 最佳编剧",
+                    "award_info": "韩家女 / 钟伟 / 文牧野"
+                },
+                {
+                    "award_name": "金鹿奖 最佳男主角",
+                    "award_info": "徐峥"
+                },
+                {
+                    "award_name": "金鹿奖 最佳男配角",
+                    "award_info": "王传君"
+                }
+            ],
+            "name": "第14届中国长春电影节",
+            "year": "2018"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "最佳编剧",
+                    "award_info": "钟伟 / 韩家女 / 文牧野"
+                }
+            ],
+            "name": "第19届华语电影传媒大奖",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "最佳影片奖(提名)",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "最佳导演奖",
+                    "award_info": "文牧野"
+                },
+                {
+                    "award_name": "最佳男演员奖",
+                    "award_info": "徐峥"
+                },
+                {
+                    "award_name": "最佳新人奖",
+                    "award_info": "章宇"
+                }
+            ],
+            "name": "第26届北京大学生电影节",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "2010s电影(提名)",
+                    "award_info": ""
+                }
+            ],
+            "name": "第6届豆瓣电影年度榜单",
+            "year": "2019"
+        },
+        {
+            "awards": [
+                {
+                    "award_name": "评分最高的华语电影",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "最受关注的院线电影",
+                    "award_info": ""
+                },
+                {
+                    "award_name": "评分最高的喜剧片",
+                    "award_info": ""
+                }
+            ],
+            "name": "第5届豆瓣电影年度榜单",
+            "year": "2018"
+        }
+    ],
+    "video_original_name": "我不是药神",
+    "video_year": "2018",
+    "video_episode": "",
+    "video_type": "剧情 / 喜剧",
+    "product_country": "中国大陆",
+    "video_simple_length": "",
+    "video_language": "汉语普通话 / 英语 / 上海话 / 印地语",
+    "video_intro": "普通中年男子程勇（徐峥饰）经营着一家保健品店，失意又失婚。不速之客吕受益（王传君饰）的到来，让他开辟了一条去印度买药做“代购”的新事业，虽然困难重重，但他在这条“买药之路”上发现了商机，一发不可收拾地做起了治疗慢粒白血病的印度仿制药独家代理商。赚钱的同时，他也认识了几个病患及家属，为救女儿被迫做舞女的思慧（谭卓饰）、说一口流利“神父腔”英语的刘牧师（杨新鸣饰），以及脾气暴烈的“黄毛”（章宇饰），几个人合伙做起了生意，利润倍增的同时也危机四伏。程勇昔日的小舅子曹警官（周一围饰）奉命调查仿制药的源头，假药贩子张长林（王砚辉饰）和瑞士正牌医药代表（李乃文饰）也对其虎视眈眈，生意逐渐变成了一场关于救赎的拉锯战。　　本片改编自慢粒白血病患者陆勇代购抗癌药的真实事迹。",
+    "score_detail": [
+        {
+            "5星": "58.7%"
+        },
+        {
+            "4星": "33.7%"
+        },
+        {
+            "3星": "6.9%"
+        },
+        {
+            "2星": "0.5%"
+        },
+        {
+            "1星": "0.2%"
+        }
+    ],
+    "video_score": "9.0",
+    "video_session": "",
+    "better_than": "99% 喜剧片/98% 剧情片",
+    "video_tags": "",
+    "main_actors": "徐峥 / 王传君 / 周一围 / 谭卓 / 章宇 / 杨新鸣 / 王佳佳 / 王砚辉 / 贾晨飞 / 龚蓓苾 / 宁浩 / 李乃文 / 岳小军 / 苇青 / 富冠铭 / 巴拉特·巴蒂 / 喜利图 / 张海艳 / 朱耕佑",
+    "rec_same_videos": [
+        {
+            "same_video_name": "楚门的世界"
+        },
+        {
+            "same_video_name": "活着"
+        },
+        {
+            "same_video_name": "寄生虫"
+        },
+        {
+            "same_video_name": "驴得水"
+        },
+        {
+            "same_video_name": "熔炉"
+        },
+        {
+            "same_video_name": "何以为家"
+        },
+        {
+            "same_video_name": "三块广告牌"
+        },
+        {
+            "same_video_name": "辩护人"
+        },
+        {
+            "same_video_name": "无名之辈"
+        },
+        {
+            "same_video_name": "让子弹飞"
+        }
+    ],
+    "video_director": "文牧野",
+    "video_other_name": "中国药神 / 印度药神 / 印度药商 / 生命之路 / Dying to Survive / Drug Dealer",
+    "video_premiere": "",
+    "video_level": "4.5星",
+    "release_time": "2018-07-05(中国大陆) / 2018-06-30(大规模点映)",
+    "video_category": "movie",
+    "video_name": "我不是药神",
+    "video_actors": [
+        {
+            "job": "director",
+            "role": "导演 Director",
+            "name": "文牧野"
+        },
+        {
+            "job": "演员",
+            "role": "程勇",
+            "name": "徐峥"
+        },
+        {
+            "job": "演员",
+            "role": "吕受益",
+            "name": "王传君"
+        },
+        {
+            "job": "演员",
+            "role": "曹斌",
+            "name": "周一围"
+        },
+        {
+            "job": "演员",
+            "role": "刘思慧",
+            "name": "谭卓"
+        },
+        {
+            "job": "演员",
+            "role": "彭浩",
+            "name": "章宇"
+        },
+        {
+            "job": "演员",
+            "role": "刘牧师",
+            "name": "杨新鸣"
+        },
+        {
+            "job": "演员",
+            "role": "吕妻",
+            "name": "王佳佳"
+        },
+        {
+            "job": "演员",
+            "role": "张长林",
+            "name": "王砚辉"
+        },
+        {
+            "job": "演员",
+            "role": "小孙",
+            "name": "贾晨飞"
+        },
+        {
+            "job": "演员",
+            "role": "曹玲",
+            "name": "龚蓓苾"
+        },
+        {
+            "job": "演员",
+            "role": "房东",
+            "name": "宁浩"
+        },
+        {
+            "job": "演员",
+            "role": "赵立忠",
+            "name": "李乃文"
+        },
+        {
+            "job": "演员",
+            "role": "养老院老板",
+            "name": "岳小军"
+        },
+        {
+            "job": "演员",
+            "role": "老妇",
+            "name": "苇青"
+        },
+        {
+            "job": "演员",
+            "role": "夜店经理",
+            "name": "富冠铭"
+        },
+        {
+            "job": "演员",
+            "role": "货船厨师",
+            "name": "巴拉特·巴蒂"
+        },
+        {
+            "job": "演员",
+            "role": "诺瓦公司亚太区代表",
+            "name": "喜利图"
+        },
+        {
+            "job": "演员",
+            "role": "酒吧舞女",
+            "name": "张海艳"
+        },
+        {
+            "job": "演员",
+            "role": "程小澍",
+            "name": "朱耕佑"
+        },
+        {
+            "job": "演员",
+            "role": "赵律师",
+            "name": "张子贤"
+        },
+        {
+            "job": "演员",
+            "role": "吴秘书",
+            "name": "邓飞"
+        },
+        {
+            "job": "演员",
+            "role": "小旅馆老板",
+            "name": "任洛敏"
+        },
+        {
+            "job": "演员",
+            "role": "张金松",
+            "name": "杜子蓝"
+        },
+        {
+            "job": "演员",
+            "role": "上海夫妻男",
+            "name": "刘兴雷"
+        },
+        {
+            "job": "演员",
+            "role": "上海片警",
+            "name": "杜家毅"
+        },
+        {
+            "job": "演员",
+            "role": "郝局长",
+            "name": "宁晓志"
+        },
+        {
+            "job": "演员",
+            "role": "赵斌",
+            "name": "刘頔"
+        },
+        {
+            "job": "演员",
+            "role": "刘思慧女儿",
+            "name": "马千壹"
+        },
+        {
+            "job": "演员",
+            "role": "审判长",
+            "name": "石强"
+        },
+        {
+            "job": "演员",
+            "role": "小胡子保安",
+            "name": "甘昀宸"
+        },
+        {
+            "job": "演员",
+            "role": "小何",
+            "name": "何李宁"
+        },
+        {
+            "job": "演员",
+            "role": "小陈",
+            "name": "陈翃"
+        },
+        {
+            "job": "演员",
+            "role": "刑警大队黄队长",
+            "name": "吴健"
+        },
+        {
+            "job": "演员",
+            "role": "演员 Actress",
+            "name": "姜蓉蓉"
+        },
+        {
+            "job": "writer",
+            "role": "编剧 Writer",
+            "name": "韩家女"
+        },
+        {
+            "job": "writer",
+            "role": "编剧 Writer",
+            "name": "钟伟"
+        },
+        {
+            "job": "writer",
+            "role": "编剧 Writer",
+            "name": "文牧野"
+        },
+        {
+            "job": "制片人",
+            "role": "制片人 Producer",
+            "name": "王易冰"
+        },
+        {
+            "job": "制片人",
+            "role": "制片人 Producer",
+            "name": "刘瑞芳"
+        },
+        {
+            "job": "制片人",
+            "role": "出品人 Presenter",
+            "name": "宋歌"
+        },
+        {
+            "job": "制片人",
+            "role": "监制 Executive Producer",
+            "name": "宁浩"
+        },
+        {
+            "job": "制片人",
+            "role": "监制 Executive Producer",
+            "name": "徐峥"
+        },
+        {
+            "job": "制片人",
+            "role": "联合制片人 Associate Producer",
+            "name": "张苗"
+        },
+        {
+            "job": "制片人",
+            "role": "联合制片人 Associate Producer",
+            "name": "施雁"
+        },
+        {
+            "job": "制片人",
+            "role": "联合出品人 Co-presenter",
+            "name": "郑志昊"
+        },
+        {
+            "job": "制片人",
+            "role": "出品人 Presenter",
+            "name": "董平"
+        },
+        {
+            "job": "制片人",
+            "role": "联合出品人 Co-presenter",
+            "name": "曾茂军"
+        },
+        {
+            "job": "制片人",
+            "role": "出品人 Presenter",
+            "name": "陈砺志"
+        },
+        {
+            "job": "制片人",
+            "role": "出品人 Presenter",
+            "name": "樊路远"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "李捷"
+        },
+        {
+            "job": "制片人",
+            "role": "执行制片人 Executive Producer",
+            "name": "刘明轶"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "康利"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "郑剑锋"
+        },
+        {
+            "job": "制片人",
+            "role": "联合出品人 Co-presenter",
+            "name": "讲武生"
+        },
+        {
+            "job": "制片人",
+            "role": "出品人 Presenter",
+            "name": "吴宏亮"
+        },
+        {
+            "job": "制片人",
+            "role": "联合出品人 Co-presenter",
+            "name": "杨伟东"
+        },
+        {
+            "job": "制片人",
+            "role": "联合出品人 Co-presenter",
+            "name": "杨硕"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "周健森"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "项绍琨"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "岳洋"
+        },
+        {
+            "job": "制片人",
+            "role": "策划 Associate Producer",
+            "name": "韩璐"
+        },
+        {
+            "job": "制片人",
+            "role": "执行制片人 Executive Producer",
+            "name": "尹哲"
+        },
+        {
+            "job": "音乐",
+            "role": "作曲 Composer",
+            "name": "黄超"
+        },
+        {
+            "job": "摄影",
+            "role": "摄影指导 Director of Photography",
+            "name": "王博学"
+        },
+        {
+            "job": "摄影",
+            "role": "摄影师 Cameraman",
+            "name": "曹勇"
+        },
+        {
+            "job": "剪辑",
+            "role": "剪辑指导 Editing Director",
+            "name": "朱琳"
+        },
+        {
+            "job": "剪辑",
+            "role": "调色师 Colorist",
+            "name": "刘畅"
+        },
+        {
+            "job": "美术",
+            "role": "美术指导 Art Director",
+            "name": "李淼"
+        },
+        {
+            "job": "美术",
+            "role": "副美术 Art",
+            "name": "张朋"
+        },
+        {
+            "job": "美术",
+            "role": "美术师 Art",
+            "name": "李同"
+        },
+        {
+            "job": "美术",
+            "role": "灯光师 Set Dresser",
+            "name": "毛伟良"
+        },
+        {
+            "job": "服装",
+            "role": "造型指导 Costume Designer",
+            "name": "李淼"
+        },
+        {
+            "job": "副导演",
+            "role": "执行导演 Executive Director",
+            "name": "尚进"
+        },
+        {
+            "job": "副导演",
+            "role": "",
+            "name": "舒巴姆·古普塔"
+        },
+        {
+            "job": "副导演",
+            "role": "",
+            "name": "高拉夫·德文·考沙尔"
+        },
+        {
+            "job": "副导演",
+            "role": "副导演 Assistant Director",
+            "name": "张岩"
+        },
+        {
+            "job": "副导演",
+            "role": "B组导演 Second Unit Director",
+            "name": "韩晓邯"
+        },
+        {
+            "job": "音效",
+            "role": "声音指导 Sound Director",
+            "name": "富康"
+        },
+        {
+            "job": "音效",
+            "role": "音效剪辑 Sound Effects Editor",
+            "name": "史蒂夫·米勒"
+        },
+        {
+            "job": "视觉特效",
+            "role": "",
+            "name": "瑞安·D·罗梅罗"
+        },
+        {
+            "job": "动作特技",
+            "role": "动作指导 Action Choreography",
+            "name": "陈纯昆"
+        },
+        {
+            "job": "其它",
+            "role": "特聘钢管舞老师 Pole Dancer Tutor",
+            "name": "张海艳"
+        },
+        {
+            "job": "其它",
+            "role": "海报设计",
+            "name": "黄海"
+        },
+        {
+            "job": "其它",
+            "role": "",
+            "name": "尚巍"
+        }
+    ]
+}
