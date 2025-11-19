@@ -7,6 +7,7 @@ import random
 import math
 import hashlib
 from collections import defaultdict, Counter
+import csv
 
 try:
     import psutil  # type: ignore
@@ -34,6 +35,11 @@ try:
     import faiss  # type: ignore
 except Exception:
     faiss = None
+
+try:
+    import matplotlib.pyplot as plt  # type: ignore
+except Exception:
+    plt = None
 
 def load_records(path, limit=None):
     records = []
@@ -427,6 +433,132 @@ def run_algo(algo, names, X, truth_map, topk, metric):
         "communities": comm,
     }
 
+def build_index_for_algo(algo, X, metric):
+    t0 = time.perf_counter()
+    mem0 = measure_memory()
+    if algo == "ivfflat":
+        index = IVFFlatIndex(nlist=max(1, int(math.sqrt(len(X)))), metric=metric, nprobe=2)
+    else:
+        index = HNSWIndex(M=16, ef=64, metric=metric)
+    index.build(X)
+    mem1 = measure_memory()
+    build_time = time.perf_counter() - t0
+    build_mem = max(0, mem1 - mem0)
+    return index, build_time, build_mem
+
+def eval_subset(index, names, X, truth_map, subset_indices, topk, metric):
+    ps, rs, fs = [], [], []
+    total_tp = 0
+    total_pred = 0
+    total_truth = 0
+    if hasattr(index, "faiss_index") and index.faiss_index is not None and np is not None:
+        Qa = np.asarray([X[i] for i in subset_indices], dtype=np.float32)
+        D, I = index.faiss_index.search(Qa, topk)
+        for row, i in enumerate(subset_indices):
+            rec = [names[j] for j in I[row].tolist() if j != i]
+            truth = truth_map.get(names[i], [])
+            p, r, f1 = precision_recall_f1(rec, truth)
+            ps.append(p)
+            rs.append(r)
+            fs.append(f1)
+            tp = len(set(rec) & set(truth))
+            total_tp += tp
+            total_pred += len(rec)
+            total_truth += len(truth)
+    elif hasattr(index, "backend") and index.backend is not None and np is not None:
+        Qa = np.asarray([X[i] for i in subset_indices], dtype=np.float32)
+        labels, _ = index.backend.knn_query(Qa, k=topk)
+        for row, i in enumerate(subset_indices):
+            rec = [names[j] for j in labels[row].tolist() if j != i]
+            truth = truth_map.get(names[i], [])
+            p, r, f1 = precision_recall_f1(rec, truth)
+            ps.append(p)
+            rs.append(r)
+            fs.append(f1)
+            tp = len(set(rec) & set(truth))
+            total_tp += tp
+            total_pred += len(rec)
+            total_truth += len(truth)
+    else:
+        for i in subset_indices:
+            q = X[i]
+            res = index.search(q, topk)
+            rec = [names[j] for j, _ in res if j != i]
+            truth = truth_map.get(names[i], [])
+            p, r, f1 = precision_recall_f1(rec, truth)
+            ps.append(p)
+            rs.append(r)
+            fs.append(f1)
+            tp = len(set(rec) & set(truth))
+            total_tp += tp
+            total_pred += len(rec)
+            total_truth += len(truth)
+    avg_p = sum(ps) / max(1, len(ps))
+    avg_r = sum(rs) / max(1, len(rs))
+    avg_f = sum(fs) / max(1, len(fs))
+    micro_p = (total_tp / total_pred) if total_pred > 0 else 0.0
+    micro_r = (total_tp / total_truth) if total_truth > 0 else 0.0
+    micro_f = (0.0 if micro_p + micro_r == 0 else (2 * micro_p * micro_r / (micro_p + micro_r)))
+    return {
+        "precision": avg_p,
+        "recall": avg_r,
+        "f1": avg_f,
+        "total_tp": total_tp,
+        "total_pred": total_pred,
+        "total_truth": total_truth,
+        "micro_precision": micro_p,
+        "micro_recall": micro_r,
+        "micro_f1": micro_f,
+    }
+
+def summarize_rounds(round_stats):
+    def stats_mean_std_err(vals):
+        n = len(vals)
+        mean = sum(vals) / max(1, n)
+        var = sum((x - mean) * (x - mean) for x in vals) / max(1, n - 1) if n > 1 else 0.0
+        std = math.sqrt(var)
+        stderr = (std / math.sqrt(n)) if n > 0 else 0.0
+        return mean, std, stderr
+    p_vals = [r["precision"] for r in round_stats]
+    r_vals = [r["recall"] for r in round_stats]
+    f_vals = [r["f1"] for r in round_stats]
+    mp_vals = [r["micro_precision"] for r in round_stats]
+    mr_vals = [r["micro_recall"] for r in round_stats]
+    mf_vals = [r["micro_f1"] for r in round_stats]
+    total_tp = sum(r["total_tp"] for r in round_stats)
+    total_pred = sum(r["total_pred"] for r in round_stats)
+    total_truth = sum(r["total_truth"] for r in round_stats)
+    pm, psd, perr = stats_mean_std_err(p_vals)
+    rm, rsd, rerr = stats_mean_std_err(r_vals)
+    fm, fsd, ferr = stats_mean_std_err(f_vals)
+    mpm, mpsd, mperr = stats_mean_std_err(mp_vals)
+    mrm, mrsd, mrerr = stats_mean_std_err(mr_vals)
+    mfm, mfsd, mferr = stats_mean_std_err(mf_vals)
+    return {
+        "precision_mean": pm,
+        "precision_std": psd,
+        "precision_stderr": perr,
+        "recall_mean": rm,
+        "recall_std": rsd,
+        "recall_stderr": rerr,
+        "f1_mean": fm,
+        "f1_std": fsd,
+        "f1_stderr": ferr,
+        "micro_precision_mean": mpm,
+        "micro_precision_std": mpsd,
+        "micro_precision_stderr": mperr,
+        "micro_recall_mean": mrm,
+        "micro_recall_std": mrsd,
+        "micro_recall_stderr": mrerr,
+        "micro_f1_mean": mfm,
+        "micro_f1_std": mfsd,
+        "micro_f1_stderr": mferr,
+        "total_tp": total_tp,
+        "total_pred": total_pred,
+        "total_truth": total_truth,
+        "rounds": len(round_stats),
+    }
+
 def analyze_pros_consivfflat():
     return "IVFFlat构建较慢但查询快，需良好聚类；内存相对可控，nprobe影响准确率与速度。"
 
@@ -443,6 +575,12 @@ def main():
     ap.add_argument("--topk", type=int, default=10)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--graph_topk", type=int, default=None)
+    ap.add_argument("--bench", action="store_true")
+    ap.add_argument("--rounds", type=int, default=100)
+    ap.add_argument("--bench_sizes", type=str, default="100,500,1000,5000,10000")
+    ap.add_argument("--out_csv", type=str, default=None)
+    ap.add_argument("--out_plot", type=str, default=None)
+    ap.add_argument("--plot_metrics", type=str, default="precision,recall,f1")
     args = ap.parse_args()
 
     names = []
@@ -478,20 +616,129 @@ def main():
         for it in items:
             truth_map[pick_name(it)] = pick_truth(it)
     algos = [args.algo] if args.algo != "both" else ["ivfflat", "hnsw"]
-    results = []
-    for a in algos:
-        r = run_algo(a, names, X, truth_map, args.topk, args.metric)
-        results.append(r)
-    for r in results:
-        print("algo", r["algo"]) 
-        print("build_time_s", round(r["build_time"], 6))
-        print("build_mem_bytes", r["build_mem"]) 
-        print("acc(precision)", round(r["precision"], 6))
-        print("recall", round(r["recall"], 6))
-        print("f1", round(r["f1"], 6))
-        if r["algo"] == "hnsw":
-            print("communities", len(set(r["communities"].values())) if r["communities"] else 0)
-        print()
+    if not args.bench:
+        results = []
+        for a in algos:
+            r = run_algo(a, names, X, truth_map, args.topk, args.metric)
+            results.append(r)
+        for r in results:
+            print("algo", r["algo"]) 
+            print("build_time_s", round(r["build_time"], 6))
+            print("build_mem_bytes", r["build_mem"]) 
+            print("acc(precision)", round(r["precision"], 6))
+            print("recall", round(r["recall"], 6))
+            print("f1", round(r["f1"], 6))
+            if r["algo"] == "hnsw":
+                print("communities", len(set(r["communities"].values())) if r["communities"] else 0)
+            print()
+    else:
+        sizes = [int(x) for x in args.bench_sizes.split(",") if x.strip().isdigit()]
+        all_rows = []
+        series = {}
+        for a in algos:
+            index, bt, bm = build_index_for_algo(a, X, args.metric)
+            print("algo", a)
+            print("build_time_s", round(bt, 6))
+            print("build_mem_bytes", bm)
+            for n in sizes:
+                if n > len(names):
+                    continue
+                round_stats = []
+                for _ in range(max(1, args.rounds)):
+                    subset = random.sample(range(len(names)), n)
+                    rs = eval_subset(index, names, X, truth_map, subset, args.topk, args.metric)
+                    round_stats.append(rs)
+                summary = summarize_rounds(round_stats)
+                print("bench_size", n)
+                print("rounds", summary["rounds"]) 
+                print("precision_mean", round(summary["precision_mean"], 6))
+                print("precision_std", round(summary["precision_std"], 6))
+                print("precision_stderr", round(summary["precision_stderr"], 6))
+                print("recall_mean", round(summary["recall_mean"], 6))
+                print("recall_std", round(summary["recall_std"], 6))
+                print("recall_stderr", round(summary["recall_stderr"], 6))
+                print("f1_mean", round(summary["f1_mean"], 6))
+                print("f1_std", round(summary["f1_std"], 6))
+                print("f1_stderr", round(summary["f1_stderr"], 6))
+                print("micro_precision_mean", round(summary["micro_precision_mean"], 6))
+                print("micro_precision_std", round(summary["micro_precision_std"], 6))
+                print("micro_precision_stderr", round(summary["micro_precision_stderr"], 6))
+                print("micro_recall_mean", round(summary["micro_recall_mean"], 6))
+                print("micro_recall_std", round(summary["micro_recall_std"], 6))
+                print("micro_recall_stderr", round(summary["micro_recall_stderr"], 6))
+                print("micro_f1_mean", round(summary["micro_f1_mean"], 6))
+                print("micro_f1_std", round(summary["micro_f1_std"], 6))
+                print("micro_f1_stderr", round(summary["micro_f1_stderr"], 6))
+                print("total_tp", summary["total_tp"]) 
+                print("total_pred", summary["total_pred"]) 
+                print("total_truth", summary["total_truth"]) 
+                print()
+                row = {
+                    "algo": a,
+                    "bench_size": n,
+                    "rounds": summary["rounds"],
+                    "build_time_s": bt,
+                    "build_mem_bytes": bm,
+                    "precision_mean": summary["precision_mean"],
+                    "precision_std": summary["precision_std"],
+                    "precision_stderr": summary["precision_stderr"],
+                    "recall_mean": summary["recall_mean"],
+                    "recall_std": summary["recall_std"],
+                    "recall_stderr": summary["recall_stderr"],
+                    "f1_mean": summary["f1_mean"],
+                    "f1_std": summary["f1_std"],
+                    "f1_stderr": summary["f1_stderr"],
+                    "micro_precision_mean": summary["micro_precision_mean"],
+                    "micro_precision_std": summary["micro_precision_std"],
+                    "micro_precision_stderr": summary["micro_precision_stderr"],
+                    "micro_recall_mean": summary["micro_recall_mean"],
+                    "micro_recall_std": summary["micro_recall_std"],
+                    "micro_recall_stderr": summary["micro_recall_stderr"],
+                    "micro_f1_mean": summary["micro_f1_mean"],
+                    "micro_f1_std": summary["micro_f1_std"],
+                    "micro_f1_stderr": summary["micro_f1_stderr"],
+                    "total_tp": summary["total_tp"],
+                    "total_pred": summary["total_pred"],
+                    "total_truth": summary["total_truth"],
+                }
+                all_rows.append(row)
+                s = series.setdefault(a, {"sizes": [], "precision": [], "precision_err": [], "recall": [], "recall_err": [], "f1": [], "f1_err": []})
+                s["sizes"].append(n)
+                s["precision"].append(summary["precision_mean"])
+                s["precision_err"].append(summary["precision_stderr"])
+                s["recall"].append(summary["recall_mean"])
+                s["recall_err"].append(summary["recall_stderr"])
+                s["f1"].append(summary["f1_mean"])
+                s["f1_err"].append(summary["f1_stderr"])
+        if args.out_csv and all_rows:
+            cols = list(all_rows[0].keys())
+            with open(args.out_csv, "w", newline="", encoding="utf-8") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                w.writeheader()
+                for r in all_rows:
+                    w.writerow(r)
+            print("csv_saved", args.out_csv)
+        if args.out_plot and plt is not None and series:
+            metrics = [m for m in args.plot_metrics.split(",") if m in ["precision", "recall", "f1"]]
+            if not metrics:
+                metrics = ["precision", "recall", "f1"]
+            rows = max(1, len(metrics))
+            fig, axes = plt.subplots(rows, 1, figsize=(8, 3 * rows), constrained_layout=True)
+            if np is not None and isinstance(axes, np.ndarray):
+                axes = axes.ravel().tolist()
+            elif not isinstance(axes, (list, tuple)):
+                axes = [axes]
+            for ax, m in zip(axes, metrics):
+                for a in algos:
+                    s = series.get(a)
+                    if not s:
+                        continue
+                    ax.errorbar(s["sizes"], s[m], yerr=s[m + "_err"], marker="o", label=a)
+                ax.set_xlabel("size")
+                ax.set_ylabel(m)
+                ax.legend()
+            fig.savefig(args.out_plot)
+            print("plot_saved", args.out_plot)
     if args.db and nx is not None and G is not None:
         try:
             import community as community_louvain  # type: ignore
